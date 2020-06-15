@@ -331,13 +331,14 @@ class Season(TvShowMixin, ItemBase):
         if update_item:
             LOG.info('UPDATE season plex_id %s - %s', plex_id, api.title())
             kodi_id = season['kodi_id']
+            self.kodidb.update_season(parent_id, api.index(), api.title())
             if app.SYNC.artwork:
                 self.kodidb.modify_artwork(artwork,
                                            kodi_id,
                                            v.KODI_TYPE_SEASON)
         else:
             LOG.info('ADD season plex_id %s - %s', plex_id, api.title())
-            kodi_id = self.kodidb.add_season(parent_id, api.index())
+            kodi_id = self.kodidb.add_season(parent_id, api.index(), api.title())
             if app.SYNC.artwork:
                 self.kodidb.add_artwork(artwork,
                                         kodi_id,
